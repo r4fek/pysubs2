@@ -1,10 +1,10 @@
+import dataclasses
 import re
 import warnings
-from typing import Optional, Dict, Any, ClassVar
-import dataclasses
+from typing import Any, ClassVar, Dict, Optional
 
 from .common import IntOrFloat
-from .time import ms_to_str, make_time
+from .time import make_time, ms_to_str
 
 
 @dataclasses.dataclass(repr=False, eq=False, order=False)

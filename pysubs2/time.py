@@ -1,9 +1,7 @@
-from collections import namedtuple
 import re
-
-
+from collections import namedtuple
 #: Pattern that matches both SubStation and SubRip timestamps.
-from typing import Optional, List, Tuple, Sequence
+from typing import List, Optional, Sequence, Tuple
 
 from pysubs2.common import IntOrFloat
 

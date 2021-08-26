@@ -1,30 +1,33 @@
 import re
+
+from .exceptions import ContentNotUsable
 from .formatbase import FormatBase
 from .ssaevent import SSAEvent
 from .ssastyle import SSAStyle
 from .substation import parse_tags
-from .exceptions import ContentNotUsable
-from .time import ms_to_times, make_time, TIMESTAMP, timestamp_to_ms
+from .time import TIMESTAMP, make_time, ms_to_times, timestamp_to_ms
 
 #: Largest timestamp allowed in SubRip, ie. 99:59:59,999.
 MAX_REPRESENTABLE_TIME = make_time(h=100) - 1
-
-def ms_to_timestamp(ms):
-    """Convert ms to 'HH:MM:SS,mmm'"""
-    # XXX throw on overflow/underflow?
-    if ms < 0: ms = 0
-    if ms > MAX_REPRESENTABLE_TIME: ms = MAX_REPRESENTABLE_TIME
-    h, m, s, ms = ms_to_times(ms)
-    return "%02d:%02d:%02d,%03d" % (h, m, s, ms)
 
 
 class SubripFormat(FormatBase):
     """SubRip Text (SRT) subtitle format implementation"""
     TIMESTAMP = TIMESTAMP
+    TIMESTAMP_FORMAT = "%02d:%02d:%02d,%03d"
 
     @staticmethod
     def timestamp_to_ms(groups):
         return timestamp_to_ms(groups)
+
+    @classmethod
+    def ms_to_timestamp(cls, ms):
+        """Convert ms to 'HH:MM:SS,mmm'"""
+        # XXX throw on overflow/underflow?
+        if ms < 0: ms = 0
+        if ms > MAX_REPRESENTABLE_TIME: ms = MAX_REPRESENTABLE_TIME
+        h, m, s, ms = ms_to_times(ms)
+        return cls.TIMESTAMP_FORMAT % (h, m, s, ms)
 
     @classmethod
     def guess_format(cls, text):
@@ -124,8 +127,8 @@ class SubripFormat(FormatBase):
 
         lineno = 1
         for line in visible_lines:
-            start = ms_to_timestamp(line.start)
-            end = ms_to_timestamp(line.end)
+            start = cls.ms_to_timestamp(line.start)
+            end = cls.ms_to_timestamp(line.end)
             try:
                 text = prepare_text(line.text, subs.styles.get(line.style, SSAStyle.DEFAULT_STYLE))
             except ContentNotUsable:

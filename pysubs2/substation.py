@@ -1,11 +1,12 @@
 import logging
 import re
 from numbers import Number
+
+from .common import Color
 from .formatbase import FormatBase
 from .ssaevent import SSAEvent
 from .ssastyle import SSAStyle
-from .common import Color
-from .time import make_time, ms_to_times, timestamp_to_ms, TIMESTAMP
+from .time import TIMESTAMP, make_time, ms_to_times, timestamp_to_ms
 
 SSA_ALIGNMENT = (1, 2, 3, 9, 10, 11, 5, 6, 7)
 
@@ -106,7 +107,7 @@ def parse_tags(text, style=SSAStyle.DEFAULT_STYLE, styles={}):
     - r (with or without style name)
     
     """
-    
+    print(text)
     fragments = SSAEvent.OVERRIDE_SEQUENCE.split(text)
     if len(fragments) == 1:
         return [(text, style)]

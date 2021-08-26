@@ -1,14 +1,15 @@
 from typing import Dict, Type
 
+from .exceptions import *
 from .formatbase import FormatBase
-from .microdvd import MicroDVDFormat
-from .subrip import SubripFormat
 from .jsonformat import JSONFormat
-from .substation import SubstationFormat
+from .microdvd import MicroDVDFormat
 from .mpl2 import MPL2Format
+from .subrip import SubripFormat
+from .substation import SubstationFormat
 from .tmp import TmpFormat
 from .webvtt import WebVTTFormat
-from .exceptions import *
+from .xmlformat import XMLFormat
 
 #: Dict mapping file extensions to format identifiers.
 FILE_EXTENSION_TO_FORMAT_IDENTIFIER: Dict[str, str] = {
@@ -19,6 +20,7 @@ FILE_EXTENSION_TO_FORMAT_IDENTIFIER: Dict[str, str] = {
     ".json": "json",
     ".txt": "tmp",
     ".vtt": "vtt",
+    ".xml": "xml",
 }
 
 #: Dict mapping format identifiers to implementations (FormatBase subclasses).
@@ -31,6 +33,7 @@ FORMAT_IDENTIFIER_TO_FORMAT_CLASS: Dict[str, Type[FormatBase]] = {
     "mpl2": MPL2Format,
     "tmp": TmpFormat,
     "vtt": WebVTTFormat,
+    "xml": XMLFormat,
 }
 
 FORMAT_IDENTIFIERS = list(FORMAT_IDENTIFIER_TO_FORMAT_CLASS.keys())

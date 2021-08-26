@@ -1,5 +1,5 @@
 test:
-	nosetests3
+	#nosetests3
 	nosetests
 
 doc:

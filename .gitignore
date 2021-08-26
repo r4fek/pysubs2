@@ -63,3 +63,7 @@ target/
 
 # temp dir
 temp/
+
+# editors
+.idea/
+.vscode/

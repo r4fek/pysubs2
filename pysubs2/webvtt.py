@@ -1,4 +1,5 @@
 import re
+
 from .subrip import SubripFormat
 from .time import make_time
 
@@ -10,6 +11,7 @@ class WebVTTFormat(SubripFormat):
     Currently, this shares implementation with :class:`pysubs2.subrip.SubripFormat`.
     """
     TIMESTAMP = re.compile(r"(\d{0,4}:)?(\d{2}):(\d{2})\.(\d{2,3})")
+    TIMESTAMP_FORMAT = "%02d:%02d:%02d.%03d"
 
     @staticmethod
     def timestamp_to_ms(groups):
@@ -33,4 +35,4 @@ class WebVTTFormat(SubripFormat):
         See :meth:`pysubs2.formats.FormatBase.to_file()`
         """
         print("WEBVTT\n", file=fp)
-        return SubripFormat.to_file(subs=subs, fp=fp, format_=format_, **kwargs)
+        return super().to_file(subs=subs, fp=fp, format_=format_, **kwargs)
