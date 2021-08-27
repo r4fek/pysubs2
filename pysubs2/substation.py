@@ -107,7 +107,6 @@ def parse_tags(text, style=SSAStyle.DEFAULT_STYLE, styles={}):
     - r (with or without style name)
     
     """
-    print(text)
     fragments = SSAEvent.OVERRIDE_SEQUENCE.split(text)
     if len(fragments) == 1:
         return [(text, style)]

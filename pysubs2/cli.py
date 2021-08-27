@@ -1,17 +1,18 @@
 import argparse
 import codecs
-import os
-import re
-import os.path as op
 import io
-from io import open
-import sys
-from textwrap import dedent
-from .formats import get_file_extension, FORMAT_IDENTIFIERS
-from .time import make_time
-from .ssafile import SSAFile
-from .common import VERSION
 import logging
+import os
+import os.path as op
+import re
+import sys
+from io import open
+from textwrap import dedent
+
+from .common import VERSION
+from .formats import FORMAT_IDENTIFIERS, get_file_extension
+from .ssafile import SSAFile
+from .time import make_time
 
 
 def positive_float(s: str) -> float:
@@ -130,7 +131,7 @@ class Pysubs2CLI:
                     errors += 1
                 else:
                     with open(path, encoding=args.input_enc) as infile:
-                        subs = SSAFile.from_file(infile, args.input_format, args.fps)
+                        subs = SSAFile.from_file(infile, args.input_format, args.fps, encoding=args.input_enc)
 
                     self.process(subs, args)
 

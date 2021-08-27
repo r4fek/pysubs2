@@ -26,7 +26,8 @@ class XMLFormat(FormatBase):
     @classmethod
     def from_file(cls, subs, fp, format_, **kwargs):
         """See :meth:`pysubs2.formats.FormatBase.from_file()`"""
-        et = ET.parse(fp).getroot()
+        parser = ET.XMLParser(encoding=kwargs["encoding"])
+        et = ET.parse(fp, parser=parser).getroot()
         events = []
 
         for el in et.find("Font").findall("Subtitle"):
