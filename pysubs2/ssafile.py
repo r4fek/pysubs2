@@ -1,16 +1,16 @@
-from collections import MutableSequence
 import io
+import logging
+import os.path
+from collections import MutableSequence
 from io import open
 from itertools import chain
-import os.path
-import logging
-from typing import Optional, List, Dict, Iterable, Any
+from typing import Any, Dict, Iterable, List, Optional
 
 from .common import IntOrFloat
 from .formats import autodetect_format, get_format_class, get_format_identifier
-from .substation import is_valid_field_content
 from .ssaevent import SSAEvent
 from .ssastyle import SSAStyle
+from .substation import is_valid_field_content
 from .time import make_time, ms_to_str
 
 
@@ -99,6 +99,7 @@ class SSAFile(MutableSequence):
             >>> subs3 = pysubs2.load("subrip-subtitles-with-fancy-tags.srt", keep_unknown_html_tags=True)
 
         """
+        kwargs["encoding"] = encoding
         with open(path, encoding=encoding) as fp:
             return cls.from_file(fp, format_, fps=fps, **kwargs)
 
