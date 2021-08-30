@@ -5,6 +5,7 @@ from .formatbase import FormatBase
 from .jsonformat import JSONFormat
 from .microdvd import MicroDVDFormat
 from .mpl2 import MPL2Format
+from .rtfformat import RtfFormat
 from .subrip import SubripFormat
 from .substation import SubstationFormat
 from .tmp import TmpFormat
@@ -21,6 +22,7 @@ FILE_EXTENSION_TO_FORMAT_IDENTIFIER: Dict[str, str] = {
     ".txt": "tmp",
     ".vtt": "vtt",
     ".xml": "xml",
+    ".rtftxt": "rtf",
 }
 
 #: Dict mapping format identifiers to implementations (FormatBase subclasses).
@@ -31,6 +33,7 @@ FORMAT_IDENTIFIER_TO_FORMAT_CLASS: Dict[str, Type[FormatBase]] = {
     "microdvd": MicroDVDFormat,
     "json": JSONFormat,
     "mpl2": MPL2Format,
+    "rtf": RtfFormat,
     "tmp": TmpFormat,
     "vtt": WebVTTFormat,
     "xml": XMLFormat,
